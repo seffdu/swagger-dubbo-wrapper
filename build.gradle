@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.2.RELEASE'
+    }
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'project-report'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+configurations {
+//    compile.exclude module: 'log4j-over-slf4j'
+    compile.exclude group: 'ch.qos.logback'
+}
+
+dependencies {
+    compile ('com.alibaba:dubbo:2.5.3'){
+        exclude group: 'org.springframework'
+    }
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version:'2.0'
+    compile group: 'org.mortbay.jetty', name: 'jetty', version:'6.1.26'
+    compile group: 'io.netty', name: 'netty', version:'3.7.0.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-client', version:'3.0.7.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jackson-provider', version:'3.0.7.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jaxb-provider', version:'3.0.7.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version:'3.0.7.Final'
+    compile group: 'com.github.sgroschupf', name: 'zkclient', version:'0.1'
+    compile group: 'org.apache.zookeeper', name: 'zookeeper', version:'3.4.6'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'org.apache.curator:curator-framework:2.7.1'
+    compile 'org.apache.curator:curator-recipes:2.7.1'
+
+    compile 'io.swagger:swagger-core:1.5.16'
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
